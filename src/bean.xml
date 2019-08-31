@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+
+
+    <bean id="classBean" class="com.pc.xmlbeans.ioc.ClassBean">
+    </bean>
+
+    <!--lazy-init默认是false,即启动容器时就getBean初始化bean实例,如上面的classBean,而interfaceBean需要在调用getBean
+        时才会初始化-->
+
+    <!--lazy-init 设置只对scop属性为singleton的bean起作用,如果一个bean的scope属性为scope=“prototype“时，
+    即使设置了lazy-init="false"，容器启动时不实例化bean，而是调用getBean方法是实例化的-->
+    <bean id="interfaceBean" class="com.pc.xmlbeans.ioc.impl.InterfaceBeanImpl" lazy-init="true"
+          destroy-method="destory" init-method="init">
+        <property name="classBean" ref="classBean"></property>
+    </bean>
+
+
+</beans>

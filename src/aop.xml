@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+             http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+
+    <bean id="authController" class="com.pc.xmlbeans.aop.AuthController">
+    </bean>
+    <bean id="firstUserServiceImpl" class="com.pc.xmlbeans.aop.impl.FirstUserServiceImpl">
+    </bean>
+    <bean id="secondUserServiceImpl" class="com.pc.xmlbeans.aop.impl.SecondUserServiceImpl">
+    </bean>
+    <bean id="aspectBean" class="com.pc.xmlbeans.aop.config.AspectBean">
+    </bean>
+
+    <!--<aop:config proxy-target-class="true">&lt;!&ndash;全部使用cglib&ndash;&gt;-->
+    <aop:config>
+        <aop:aspect id="time" ref="aspectBean">
+            <aop:pointcut id="addAllMethod" expression="execution(* com.pc.xmlbeans.aop.*.*())"/>
+            <aop:before method="beforeAdvice" pointcut-ref="addAllMethod"/>
+            <aop:after method="beforeAdvice" pointcut-ref="addAllMethod"/>
+        </aop:aspect>
+    </aop:config>
+
+
+</beans>
